@@ -1,6 +1,6 @@
 <div class="row padding-1 p-1">
     <div class="col-md-12">
-
+        <!-- Usuario -->
         <div class="form-group mb-2 mb20">
             <label for="user_id" class="form-label">Usuario</label>
             <select name="user_id" id="user_id" class="form-control">
@@ -13,13 +13,14 @@
             </select>
             {!! $errors->first('user_id', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
-
+        <!-- Titulo -->
         <div class="form-group mb-2 mb20">
             <label for="titulo" class="form-label">{{ __('Titulo') }}</label>
             <input type="text" name="titulo" class="form-control @error('titulo') is-invalid @enderror"
                 value="{{ old('titulo', $noticia?->titulo) }}" id="titulo" placeholder="Titulo">
             {!! $errors->first('titulo', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
+        <!-- contenido -->
         <div class="form-group mb-2 mb20">
             <label for="contenido" class="form-label">{{ __('Contenido') }}</label>
             <input type="text" name="contenido" class="form-control @error('contenido') is-invalid @enderror"
@@ -51,12 +52,15 @@
                 '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>',
             ) !!}
         </div>
+        <!-- Archivo url -->
         <div class="form-group mb-2 mb20">
-            <label for="archivo_url" class="form-label">{{ __('Archivo Url') }}</label>
-            <input type="text" name="archivo_url" class="form-control @error('archivo_url') is-invalid @enderror"
-                value="{{ old('archivo_url', $noticia?->archivo_url) }}" id="archivo_url" placeholder="Archivo Url">
+            <label for="archivo_url" class="form-label">{{ __('Imagen de la noticia') }}</label>
+            <input type="file" name="archivo_url" class="form-control @error('archivo_url') is-invalid @enderror"
+                id="archivo_url" accept="image/*">
             {!! $errors->first('archivo_url', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
+
+        <!-- Fecha Publicación -->
         <div class="form-group mb-2 mb20">
             <label for="fecha_publicacion" class="form-label">{{ __('Fecha Publicacion') }}</label>
             <input type="text" name="fecha_publicacion"
@@ -68,6 +72,7 @@
                 '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>',
             ) !!}
         </div>
+        <!-- fecha del evento -->
         <div class="form-group mb-2 mb20">
             <label for="fecha_evento" class="form-label">{{ __('Fecha Evento') }}</label>
             <input type="text" name="fecha_evento" class="form-control @error('fecha_evento') is-invalid @enderror"
@@ -75,12 +80,15 @@
                 placeholder="Fecha Evento">
             {!! $errors->first('fecha_evento', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
+        <!-- Lugar -->
         <div class="form-group mb-2 mb20">
             <label for="lugar" class="form-label">{{ __('Lugar') }}</label>
             <input type="text" name="lugar" class="form-control @error('lugar') is-invalid @enderror"
                 value="{{ old('lugar', $noticia?->lugar) }}" id="lugar" placeholder="Lugar">
             {!! $errors->first('lugar', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
+
+        <!-- enlace de transmision -->
         <div class="form-group mb-2 mb20">
             <label for="enlace_transmision" class="form-label">{{ __('Enlace Transmision') }}</label>
             <input type="text" name="enlace_transmision"

@@ -26,7 +26,7 @@ class NoticiaRequest extends FormRequest
 			'titulo' => 'required|string',
 			'contenido' => 'string',
 			'tipo_publicacion' => 'required',
-			'archivo_url' => 'string',
+			'archivo_url' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 			'fecha_publicacion' => 'string',
 			'fecha_evento' => 'string',
 			'lugar' => 'string',

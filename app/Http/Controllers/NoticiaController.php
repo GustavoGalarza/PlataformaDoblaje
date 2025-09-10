@@ -28,14 +28,19 @@ class NoticiaController extends Controller
 }
 
     public function store(NoticiaRequest $request): RedirectResponse
-    {
-        // Guardar tal cual viene del form
-        $data = $request->validated();
-        Noticia::create($data);
+{
+    $data = $request->validated();
 
-        return Redirect::route('noticias.index')
-            ->with('success', 'Noticia creada correctamente.');
+    if ($request->hasFile('archivo_url')) {
+        $path = $request->file('archivo_url')->store('noticias', 'public');
+        $data['archivo_url'] = $path;
     }
+
+    Noticia::create($data);
+
+    return Redirect::route('noticias.index')
+        ->with('success', 'Noticia creada correctamente.');
+}
 
     public function show($id): View
     {
@@ -51,13 +56,19 @@ class NoticiaController extends Controller
 }
 
     public function update(NoticiaRequest $request, Noticia $noticia): RedirectResponse
-    {
-        $data = $request->validated();
-        $noticia->update($data);
+{
+    $data = $request->validated();
 
-        return Redirect::route('noticias.index')
-            ->with('success', 'Noticia actualizada correctamente');
+    if ($request->hasFile('archivo_url')) {
+        $path = $request->file('archivo_url')->store('noticias', 'public');
+        $data['archivo_url'] = $path;
     }
+
+    $noticia->update($data);
+
+    return Redirect::route('noticias.index')
+        ->with('success', 'Noticia actualizada correctamente');
+}
 
     public function destroy($id): RedirectResponse
     {
