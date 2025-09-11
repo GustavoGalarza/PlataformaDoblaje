@@ -38,21 +38,24 @@
                         </div>
                         <div class="form-group mb-2 mb20">
                             <strong>Imagen:</strong><br>
-                            @if ($noticia->archivo_url)
-                                <img src="{{ asset('storage/' . $noticia->archivo_url) }}" alt="Imagen de la noticia"
-                                    width="200" class="img-fluid rounded">
-                            @else
-                                <span class="badge bg-secondary">Sin imagen</span>
-                            @endif
+                            <td>
+                                @if ($noticia->archivo_url)
+                                    <x-cloudinary::image public-id="{{ $noticia->archivo_url }}" width="200"
+                                        height="150" crop="fit" />
+                                @else
+                                    <span class="badge bg-secondary">No hay imagen</span>
+                                @endif
+                            </td>
+
                         </div>
 
                         <div class="form-group mb-2 mb20">
                             <strong>Fecha Publicacion:</strong>
-                            {{ $noticia->fecha_publicacion }}
+                            {{ \Carbon\Carbon::parse($noticia->fecha_publicacion)->format('d/m/Y H:i') }}
                         </div>
                         <div class="form-group mb-2 mb20">
                             <strong>Fecha Evento:</strong>
-                            {{ $noticia->fecha_evento }}
+                           {{ \Carbon\Carbon::parse($noticia->fecha_evento)->format('d/m/Y H:i') }}
                         </div>
                         <div class="form-group mb-2 mb20">
                             <strong>Lugar:</strong>

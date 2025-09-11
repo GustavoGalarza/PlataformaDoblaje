@@ -1,5 +1,9 @@
 {{-- resources/views/welcome.blade.php --}}
 <!DOCTYPE html>
+@php
+use Illuminate\Support\Facades\Route;
+@endphp
+
 <html lang="es">
 <head>
     <meta charset="UTF-8">

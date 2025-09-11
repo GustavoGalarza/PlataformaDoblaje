@@ -122,5 +122,12 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
+    'aliases' => [
+        // Otros aliases...
+        'Cloudinary' => CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary::class,
+        'Str' => Illuminate\Support\Str::class,
+        'Session' => Illuminate\Support\Facades\Session::class,
+    ],
+
 
 ];

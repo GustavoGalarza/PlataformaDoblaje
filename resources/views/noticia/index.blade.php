@@ -14,7 +14,7 @@
                         <a href="{{ route('noticias.create') }}" class="btn btn-primary btn-sm">{{ __('Crear Noticia') }}</a>
                     </div>
 
-                    @if ($message = Session::get('success'))
+                    @if ($message = session('success'))
                         <div class="alert alert-success m-4">
                             <p>{{ $message }}</p>
                         </div>
@@ -45,15 +45,23 @@
                                             <td>{{ $noticia->titulo }}</td>
                                             <td>
                                                 @if ($noticia->archivo_url)
-                                                    <img src="{{ asset('storage/' . $noticia->archivo_url) }}"
-                                                        alt="Imagen de la noticia" width="80" class="img-thumbnail">
+                                                    <x-cloudinary::image public-id="{{ $noticia->archivo_url }}"
+                                                        width="200" {{-- ancho en px --}} height="150"
+                                                        {{-- alto en px --}} crop="fit" {{-- ajusta la imagen dentro del ancho/alto --}}
+                                                        alt="{{ $noticia->titulo }}" />
                                                 @else
-                                                    <span class="badge bg-secondary">Sin imagen</span>
+                                                    <span>Sin imagen</span>
                                                 @endif
                                             </td>
+
+
                                             <td>{{ ucfirst($noticia->tipo_publicacion) }}</td>
-                                            <td>{{ $noticia->fecha_publicacion }}</td>
-                                            <td>{{ $noticia->fecha_evento }}</td>
+                                            <td>
+                                                {{ \Carbon\Carbon::parse($noticia->fecha_publicacion)->format('d/m/Y H:i') }}
+                                            </td>
+                                            <td>
+                                                {{ \Carbon\Carbon::parse($noticia->fecha_evento)->format('d/m/Y H:i') }}
+                                            </>
                                             <td>{{ $noticia->requiere_inscripcion ? 'Sí' : 'No' }}</td>
                                             <td>{{ $noticia->certificado ? 'Sí' : 'No' }}</td>
                                             <td>

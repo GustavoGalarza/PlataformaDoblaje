@@ -23,10 +23,11 @@
         <!-- contenido -->
         <div class="form-group mb-2 mb20">
             <label for="contenido" class="form-label">{{ __('Contenido') }}</label>
-            <input type="text" name="contenido" class="form-control @error('contenido') is-invalid @enderror"
-                value="{{ old('contenido', $noticia?->contenido) }}" id="contenido" placeholder="Contenido">
+            <textarea name="contenido" id="contenido" rows="6" class="form-control @error('contenido') is-invalid @enderror"
+                placeholder="Contenido">{{ old('contenido', $noticia?->contenido) }}</textarea>
             {!! $errors->first('contenido', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
+
         <!-- Tipo de Publicación -->
         <div class="form-group mb-2 mb20">
             <label for="tipo_publicacion" class="form-label">Tipo de Publicación</label>
@@ -63,23 +64,26 @@
         <!-- Fecha Publicación -->
         <div class="form-group mb-2 mb20">
             <label for="fecha_publicacion" class="form-label">{{ __('Fecha Publicacion') }}</label>
-            <input type="text" name="fecha_publicacion"
+            <input type="datetime-local" name="fecha_publicacion"
                 class="form-control @error('fecha_publicacion') is-invalid @enderror"
-                value="{{ old('fecha_publicacion', $noticia?->fecha_publicacion) }}" id="fecha_publicacion"
-                placeholder="Fecha Publicacion">
+                value="{{ old('fecha_publicacion', optional($noticia?->fecha_publicacion)->format('Y-m-d\TH:i')) }}"
+                id="fecha_publicacion" placeholder="Fecha Publicacion">
             {!! $errors->first(
                 'fecha_publicacion',
                 '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>',
             ) !!}
         </div>
-        <!-- fecha del evento -->
+
+        <!-- Fecha Evento -->
         <div class="form-group mb-2 mb20">
             <label for="fecha_evento" class="form-label">{{ __('Fecha Evento') }}</label>
-            <input type="text" name="fecha_evento" class="form-control @error('fecha_evento') is-invalid @enderror"
-                value="{{ old('fecha_evento', $noticia?->fecha_evento) }}" id="fecha_evento"
-                placeholder="Fecha Evento">
+            <input type="datetime-local" name="fecha_evento"
+                class="form-control @error('fecha_evento') is-invalid @enderror"
+                value="{{ old('fecha_evento', optional($noticia?->fecha_evento)->format('Y-m-d\TH:i')) }}"
+                id="fecha_evento" placeholder="Fecha Evento">
             {!! $errors->first('fecha_evento', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
+
         <!-- Lugar -->
         <div class="form-group mb-2 mb20">
             <label for="lugar" class="form-label">{{ __('Lugar') }}</label>
@@ -94,7 +98,7 @@
             <input type="text" name="enlace_transmision"
                 class="form-control @error('enlace_transmision') is-invalid @enderror"
                 value="{{ old('enlace_transmision', $noticia?->enlace_transmision) }}" id="enlace_transmision"
-                placeholder="Enlace Transmision">
+                placeholder="Enlace Transmision/Teléfono">
             {!! $errors->first(
                 'enlace_transmision',
                 '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>',

@@ -1,7 +1,5 @@
-{{-- resources/views/layouts/dashboard.blade.php --}}
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -141,13 +139,17 @@
         </a>
         <!-- Noticias -->
         <a href="{{ route('noticias.index') }}" class="nav-link">
-            <i class="fa fa-newspaper"></i>
+            <i class="fa fa-table-list"></i>
             <span>Noticias-Control</span>
+        </a>
+        <a href="{{ route('panel-noticias') }}" class="nav-link">
+            <i class="fa fa-newspaper"></i>
+            <span>Noticias</span>
         </a>
 
         <!-- Usuarios -->
         <a href="{{ route('users.index') }}" class="{{ request()->is('users*') ? 'active' : '' }}">
-            <i class="fa-solid fa-users"></i>
+            <i class="fa-solid fa-users-gear"></i>
             <span>Usuarios</span>
         </a>
 
