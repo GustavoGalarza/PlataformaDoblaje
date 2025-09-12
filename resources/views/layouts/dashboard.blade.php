@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -164,6 +165,43 @@
         <a href="{{ route('productos.index') }}" class="{{ request()->is('productos*') ? 'active' : '' }}">
             <i class="fa-solid fa-box"></i>
             <span>Productos</span>
+        </a>
+
+        <!-- Auxiliares -->
+        <a href="{{ route('idiomas.index') }}" class="{{ request()->is('idiomas*') ? 'active' : '' }}">
+            <i class="fa-brands fa-font-awesome"></i>
+            <span>Idiomas</span>
+        </a>
+
+        <a href="{{ route('tipo-vozs.index') }}" class="{{ request()->is('tipo-vozs*') ? 'active' : '' }}">
+            <i class="fa-brands fa-microphone"></i>
+            <span>Tipo de Voz</span>
+        </a>
+
+        <a href="{{ route('estilos-vozs.index') }}" class="{{ request()->is('estilos-vozs*') ? 'active' : '' }}">
+            <i class="fa-brands fa-music"></i>
+            <span>Estilos de Voz</span>
+        </a>
+
+        <a href="{{ route('rango-vocals.index') }}" class="{{ request()->is('rango-vocals*') ? 'active' : '' }}">
+            <i class="fa-brands fa-chart-line"></i>
+            <span>Rango Vocal</span>
+        </a>
+
+        <a href="{{ route('timbre-vozs.index') }}" class="{{ request()->is('timbre-vozs*') ? 'active' : '' }}">
+            <i class="fa-brands fa-broadcast-tower"></i>
+            <span>Timbre de Voz</span>
+        </a>
+
+        <a href="{{ route('acentos-dialectos.index') }}"
+            class="{{ request()->is('acentos-dialectos*') ? 'active' : '' }}">
+            <i class="fa-brands fa-language"></i>
+            <span>Acentos / Dialectos</span>
+        </a>
+
+        <a href="{{ route('redes-sociales.index') }}" class="{{ request()->is('redes-sociales*') ? 'active' : '' }}">
+            <i class="fa-brands fa-share-alt"></i>
+            <span>Redes Sociales</span>
         </a>
 
         <!-- Logout -->
