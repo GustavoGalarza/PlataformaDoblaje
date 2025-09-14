@@ -64,7 +64,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $idiomas->withQueryString()->links() !!}
+                {!! $idiomas->withQueryString()->links('pagination::bootstrap-5') !!}
             </div>
         </div>
     </div>

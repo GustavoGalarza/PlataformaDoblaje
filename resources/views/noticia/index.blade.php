@@ -126,7 +126,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {!! $noticias->withQueryString()->links() !!}
+                            {!! $noticias->withQueryString()->links('pagination::bootstrap-5') !!}
                         </div>
                     </div>
                 </div>

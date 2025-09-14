@@ -98,7 +98,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $users->withQueryString()->links() !!}
+                {!! $users->withQueryString()->links('pagination::bootstrap-5') !!}
             </div>
         </div>
     </div>

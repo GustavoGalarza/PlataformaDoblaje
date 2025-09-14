@@ -66,7 +66,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $estilosVozs->withQueryString()->links() !!}
+                {!! $estilosVozs->withQueryString()->links('pagination::bootstrap-5') !!}
             </div>
         </div>
     </div>

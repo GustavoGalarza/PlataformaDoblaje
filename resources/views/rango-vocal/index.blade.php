@@ -66,7 +66,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $rangoVocals->withQueryString()->links() !!}
+                {!! $rangoVocals->withQueryString()->links('pagination::bootstrap-5') !!}
             </div>
         </div>
     </div>

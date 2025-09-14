@@ -66,7 +66,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $tipoVozs->withQueryString()->links() !!}
+                {!! $tipoVozs->withQueryString()->links('pagination::bootstrap-5') !!}
             </div>
         </div>
     </div>

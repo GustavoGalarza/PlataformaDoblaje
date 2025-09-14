@@ -66,7 +66,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $timbreVozs->withQueryString()->links() !!}
+                {!! $timbreVozs->withQueryString()->links('pagination::bootstrap-5') !!}
             </div>
         </div>
     </div>
