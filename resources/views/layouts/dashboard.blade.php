@@ -141,67 +141,28 @@
         <!-- Noticias -->
         <a href="{{ route('noticias.index') }}" class="nav-link">
             <i class="fa fa-table-list"></i>
-            <span>Noticias-Control</span>
+            <span>Noticias/Control</span>
         </a>
         <a href="{{ route('panel-noticias') }}" class="nav-link">
             <i class="fa fa-newspaper"></i>
             <span>Noticias</span>
         </a>
-
+        <a href="{{ route('panel-habilidades') }}" class="nav-link">
+            <i class="fa fa-hands"></i>
+            <span>Control/Habilidades</span>
+        </a>
         <!-- Usuarios -->
         <a href="{{ route('users.index') }}" class="{{ request()->is('users*') ? 'active' : '' }}">
             <i class="fa-solid fa-users-gear"></i>
             <span>Usuarios</span>
         </a>
 
-
-        <!-- Categorías -->
-        <a href="{{ route('categoria.index') }}" class="{{ request()->is('categoria*') ? 'active' : '' }}">
-            <i class="fa-solid fa-list"></i>
-            <span>Categorías</span>
-        </a>
-
-        <!-- Productos -->
-        <a href="{{ route('productos.index') }}" class="{{ request()->is('productos*') ? 'active' : '' }}">
-            <i class="fa-solid fa-box"></i>
-            <span>Productos</span>
-        </a>
-
         <!-- Auxiliares -->
-        <a href="{{ route('idiomas.index') }}" class="{{ request()->is('idiomas*') ? 'active' : '' }}">
-            <i class="fa-brands fa-font-awesome"></i>
-            <span>Idiomas</span>
-        </a>
 
-        <a href="{{ route('tipo-vozs.index') }}" class="{{ request()->is('tipo-vozs*') ? 'active' : '' }}">
-            <i class="fa-brands fa-microphone"></i>
-            <span>Tipo de Voz</span>
-        </a>
-
-        <a href="{{ route('estilos-vozs.index') }}" class="{{ request()->is('estilos-vozs*') ? 'active' : '' }}">
-            <i class="fa-brands fa-music"></i>
-            <span>Estilos de Voz</span>
-        </a>
-
-        <a href="{{ route('rango-vocals.index') }}" class="{{ request()->is('rango-vocals*') ? 'active' : '' }}">
-            <i class="fa-brands fa-chart-line"></i>
-            <span>Rango Vocal</span>
-        </a>
-
-        <a href="{{ route('timbre-vozs.index') }}" class="{{ request()->is('timbre-vozs*') ? 'active' : '' }}">
-            <i class="fa-brands fa-broadcast-tower"></i>
-            <span>Timbre de Voz</span>
-        </a>
-
-        <a href="{{ route('acentos-dialectos.index') }}"
-            class="{{ request()->is('acentos-dialectos*') ? 'active' : '' }}">
-            <i class="fa-brands fa-language"></i>
-            <span>Acentos / Dialectos</span>
-        </a>
 
         <a href="{{ route('redes-sociales.index') }}" class="{{ request()->is('redes-sociales*') ? 'active' : '' }}">
-            <i class="fa-brands fa-share-alt"></i>
-            <span>Redes Sociales</span>
+            <i class="fa-solid fa-network-wired"></i>
+            <span>Control/Redes Sociales</span>
         </a>
 
         <!-- Logout -->

@@ -39,8 +39,8 @@ class TipoVozController extends Controller
     {
         TipoVoz::create($request->validated());
 
-        return Redirect::route('tipo-vozs.index')
-            ->with('success', 'TipoVoz created successfully.');
+        return Redirect::route('panel-habilidades')
+            ->with('success', 'Tipo de Voz creado Exitosamente.');
     }
 
     /**
@@ -70,15 +70,15 @@ class TipoVozController extends Controller
     {
         $tipoVoz->update($request->validated());
 
-        return Redirect::route('tipo-vozs.index')
-            ->with('success', 'TipoVoz updated successfully');
+        return Redirect::route('panel-habilidades')
+            ->with('success', 'Tipo de Voz Actualizado exitosamente');
     }
 
     public function destroy($id): RedirectResponse
     {
         TipoVoz::find($id)->delete();
 
-        return Redirect::route('tipo-vozs.index')
-            ->with('success', 'TipoVoz deleted successfully');
+        return Redirect::route('panel-habilidades')
+            ->with('success', 'Tipo de Voz Eliminado Exitosamente');
     }
 }

@@ -39,8 +39,8 @@ class RangoVocalController extends Controller
     {
         RangoVocal::create($request->validated());
 
-        return Redirect::route('rango-vocals.index')
-            ->with('success', 'RangoVocal created successfully.');
+        return Redirect::route('panel-habilidades')
+            ->with('success', 'Rango Vocal Creado Exitosamente.');
     }
 
     /**
@@ -70,15 +70,15 @@ class RangoVocalController extends Controller
     {
         $rangoVocal->update($request->validated());
 
-        return Redirect::route('rango-vocals.index')
-            ->with('success', 'RangoVocal updated successfully');
+        return Redirect::route('panel-habilidades')
+            ->with('success', 'Rango Vocal Actualizado Exitosamente');
     }
 
     public function destroy($id): RedirectResponse
     {
         RangoVocal::find($id)->delete();
 
-        return Redirect::route('rango-vocals.index')
-            ->with('success', 'RangoVocal deleted successfully');
+        return Redirect::route('panel-habilidades')
+            ->with('success', 'Rango Vocal Eliminado Exitosamente');
     }
 }

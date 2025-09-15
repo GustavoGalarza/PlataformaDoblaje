@@ -39,8 +39,8 @@ class AcentosDialectoController extends Controller
     {
         AcentosDialecto::create($request->validated());
 
-        return Redirect::route('acentos-dialectos.index')
-            ->with('success', 'AcentosDialecto created successfully.');
+        return Redirect::route('panel-habilidades')
+            ->with('success', 'Acentos/Dialecto Creado Exitosamente.');
     }
 
     /**
@@ -70,15 +70,15 @@ class AcentosDialectoController extends Controller
     {
         $acentosDialecto->update($request->validated());
 
-        return Redirect::route('acentos-dialectos.index')
-            ->with('success', 'AcentosDialecto updated successfully');
+        return Redirect::route('panel-habilidades')
+            ->with('success', 'Acentos/Dialecto Actualizado Exitosamente');
     }
 
     public function destroy($id): RedirectResponse
     {
         AcentosDialecto::find($id)->delete();
 
-        return Redirect::route('acentos-dialectos.index')
-            ->with('success', 'AcentosDialecto deleted successfully');
+        return Redirect::route('panel-habilidades')
+            ->with('success', 'Acentos/Dialecto Eliminado Exitosamente');
     }
 }

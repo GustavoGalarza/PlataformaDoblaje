@@ -39,8 +39,8 @@ class IdiomaController extends Controller
     {
         Idioma::create($request->validated());
 
-        return Redirect::route('idiomas.index')
-            ->with('success', 'Idioma created successfully.');
+        return Redirect::route('panel-habilidades')
+            ->with('success', 'Idioma Creado Exitosamente.');
     }
 
     /**
@@ -70,15 +70,15 @@ class IdiomaController extends Controller
     {
         $idioma->update($request->validated());
 
-        return Redirect::route('idiomas.index')
-            ->with('success', 'Idioma updated successfully');
+        return Redirect::route('panel-habilidades')
+            ->with('success', 'Idioma Actualizado Exitosamente');
     }
 
     public function destroy($id): RedirectResponse
     {
         Idioma::find($id)->delete();
 
-        return Redirect::route('idiomas.index')
+        return Redirect::route('panel-habilidades')
             ->with('success', 'Idioma deleted successfully');
     }
 }

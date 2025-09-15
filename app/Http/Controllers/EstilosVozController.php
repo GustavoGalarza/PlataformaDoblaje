@@ -39,7 +39,7 @@ class EstilosVozController extends Controller
     {
         EstilosVoz::create($request->validated());
 
-        return Redirect::route('estilos-vozs.index')
+        return Redirect::route('panel-habilidades')
             ->with('success', 'EstilosVoz created successfully.');
     }
 
@@ -70,7 +70,7 @@ class EstilosVozController extends Controller
     {
         $estilosVoz->update($request->validated());
 
-        return Redirect::route('estilos-vozs.index')
+        return Redirect::route('panel-habilidades')
             ->with('success', 'EstilosVoz updated successfully');
     }
 
@@ -78,7 +78,7 @@ class EstilosVozController extends Controller
     {
         EstilosVoz::find($id)->delete();
 
-        return Redirect::route('estilos-vozs.index')
-            ->with('success', 'EstilosVoz deleted successfully');
+        return Redirect::route('panel-habilidades')
+            ->with('success', 'Estilos de Voz Eliminados Exitosamente');
     }
 }

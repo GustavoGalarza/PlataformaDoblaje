@@ -39,8 +39,8 @@ class TimbreVozController extends Controller
     {
         TimbreVoz::create($request->validated());
 
-        return Redirect::route('timbre-vozs.index')
-            ->with('success', 'TimbreVoz created successfully.');
+        return Redirect::route('panel-habilidades')
+            ->with('success', 'TimbreVoz Creado Exitosamente.');
     }
 
     /**
@@ -70,15 +70,15 @@ class TimbreVozController extends Controller
     {
         $timbreVoz->update($request->validated());
 
-        return Redirect::route('timbre-vozs.index')
-            ->with('success', 'TimbreVoz updated successfully');
+        return Redirect::route('panel-habilidades')
+            ->with('success', 'TimbreVoz Actualizado Exitosamente');
     }
 
     public function destroy($id): RedirectResponse
     {
         TimbreVoz::find($id)->delete();
 
-        return Redirect::route('timbre-vozs.index')
-            ->with('success', 'TimbreVoz deleted successfully');
+        return Redirect::route('panel-habilidades')
+            ->with('success', 'TimbreVoz Eliminado Exitosamente');
     }
 }
