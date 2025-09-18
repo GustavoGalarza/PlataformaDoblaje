@@ -139,6 +139,11 @@
             <span>Perfil</span>
         </a>
         <!-- Noticias -->
+        <a href="{{ route('perfiles.index') }}" class="nav-link">
+            <i class="fa fa-table"></i>
+            <span>Perfiles/Control</span>
+        </a>
+        <!-- Noticias -->
         <a href="{{ route('noticias.index') }}" class="nav-link">
             <i class="fa fa-table-list"></i>
             <span>Noticias/Control</span>

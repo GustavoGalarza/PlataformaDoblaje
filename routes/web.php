@@ -11,6 +11,8 @@ use App\Http\Controllers\TimbreVozController;
 use App\Http\Controllers\AcentosDialectoController;
 use App\Http\Controllers\RedesSocialeController;
 use App\Http\Controllers\PanelHabilidadesController;
+use App\Http\Controllers\PerfileController;
+
 
 
 
@@ -39,3 +41,6 @@ Route::resource('acentos-dialectos', AcentosDialectoController::class);
 Route::resource('redes-sociales', RedesSocialeController::class);
 
 Route::get('/panel-habilidades', [PanelHabilidadesController::class, 'index'])->name('panel-habilidades');
+
+
+Route::resource('perfiles', PerfileController::class);
