@@ -14,7 +14,7 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito:400,600,700&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome (íconos) -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <!-- Scripts -->
@@ -27,7 +27,7 @@
             font-family: 'Nunito', sans-serif;
         }
 
-        /* Sidebar base */
+        /* Sidebar */
         .sidebar {
             width: 70px;
             background: #212529;
@@ -39,12 +39,10 @@
             overflow: hidden;
         }
 
-        /* Sidebar expandido */
         .sidebar:hover {
             width: 220px;
         }
 
-        /* Brand (logo + texto) */
         .sidebar .brand {
             display: flex;
             align-items: center;
@@ -53,7 +51,6 @@
             margin-bottom: 2rem;
             color: #ffc107;
             padding-left: .3rem;
-            /* 👈 mantiene fijo el icono */
         }
 
         .sidebar .brand i {
@@ -120,30 +117,47 @@
             padding: 2rem;
         }
     </style>
-
-
-
 </head>
 
 <body>
-    <!-- Sidebar -->
+    @php
+        use Illuminate\Support\Facades\Auth;
+        $perfil = Auth::check() ? \App\Models\Perfile::where('user_id', Auth::id())->first() : null;
+    @endphp
+
     <!-- Sidebar -->
     <div class="sidebar">
-        <div class="brand">
-            <i class="fa-solid fa-clapperboard"></i>
-            <span class="brand-text">{{ config('app.name', 'Doblaje') }}</span>
+        <div class="brand d-flex align-items-center justify-content-between w-100">
+            <div class="d-flex align-items-center">
+                <i class="fa-solid fa-clapperboard"></i>
+                <span class="brand-text ms-2">{{ config('app.name', 'Doblaje') }}</span>
+            </div>
         </div>
 
-        <a href="{{ url('/profile') }}" class="{{ request()->is('profile') ? 'active' : '' }}">
-            <i class="fa-solid fa-user"></i>
-            <span>Perfil</span>
-        </a>
-        <!-- Noticias -->
+        @auth
+            <!-- Mi Perfil -->
+            <a href="{{ $perfil ? route('mi-portafolio') : 'javascript:void(0);' }}" id="link-perfil"
+                class="d-flex align-items-center text-decoration-none">
+                @if ($perfil && $perfil->foto_url)
+                    <div class="d-flex align-items-center">
+                        <div style="width:32px;height:32px;min-width:32px;overflow:hidden;border-radius:50%;flex-shrink:0;">
+                            <x-cloudinary::image public-id="{{ $perfil->foto_url }}" width="32" height="32"
+                                crop="fill" style="width:100%;height:100%;object-fit:cover;" />
+                        </div>
+                        <span class="ms-2">{{ $perfil->nombre }}</span>
+                    </div>
+                @else
+                    <i class="fa-solid fa-user me-2" style="font-size: 1.5rem;"></i>
+                    <span>{{ $perfil ? $perfil->nombre : 'Mi Perfil' }}</span>
+                @endif
+            </a>
+        @endauth
+
+        <!-- Otras opciones -->
         <a href="{{ route('perfiles.index') }}" class="nav-link">
             <i class="fa fa-table"></i>
             <span>Perfiles/Control</span>
         </a>
-        <!-- Noticias -->
         <a href="{{ route('noticias.index') }}" class="nav-link">
             <i class="fa fa-table-list"></i>
             <span>Noticias/Control</span>
@@ -156,42 +170,77 @@
             <i class="fa fa-hands"></i>
             <span>Control/Habilidades</span>
         </a>
-        <!-- Usuarios -->
         <a href="{{ route('users.index') }}" class="{{ request()->is('users*') ? 'active' : '' }}">
             <i class="fa-solid fa-users-gear"></i>
             <span>Usuarios</span>
         </a>
-
-        <!-- Auxiliares -->
-
-
         <a href="{{ route('redes-sociales.index') }}" class="{{ request()->is('redes-sociales*') ? 'active' : '' }}">
             <i class="fa-solid fa-network-wired"></i>
             <span>Control/Redes Sociales</span>
         </a>
-
-        <!-- Logout -->
         <a href="{{ route('logout') }}"
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <i class="fa-solid fa-right-from-bracket"></i>
             <span>Cerrar Sesión</span>
         </a>
-
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-            @csrf
-        </form>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
     </div>
 
+    <!-- Modal si no hay perfil -->
+    @auth
+        @if (!$perfil)
+            <div class="modal fade" id="no-perfil-modal" tabindex="-1" aria-labelledby="noPerfilLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Perfil no encontrado</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                        </div>
+                        <div class="modal-body">
+                            La cuenta <strong>{{ Auth::user()->email }}</strong> no tiene un perfil creado.
+                            ¿Deseas crear uno ahora?
+                        </div>
+                        <div class="modal-footer">
+                            <a href="{{ route('mi-portafolio.create') }}" class="btn btn-primary">Crear Perfil</a>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+    @endauth
 
     <!-- Content -->
     <div class="content">
         @yield('content')
-        @include('layouts.alerts') {{-- Aquí incluimos los alerts --}}
+        @include('layouts.alerts')
     </div>
+
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    @auth
+        @if (!$perfil)
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    let linkPerfil = document.getElementById("link-perfil");
+                    if (linkPerfil) {
+                        linkPerfil.addEventListener("click", function(e) {
+                            e.preventDefault();
+                            var myModal = new bootstrap.Modal(document.getElementById('no-perfil-modal'));
+                            myModal.show();
+                        });
+                    }
+                });
+            </script>
+        @endif
+    @endauth
+
     @stack('scripts')
+    <!-- Bootstrap JS (con Popper incluido) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
 
 </body>
 

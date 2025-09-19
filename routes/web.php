@@ -12,7 +12,7 @@ use App\Http\Controllers\AcentosDialectoController;
 use App\Http\Controllers\RedesSocialeController;
 use App\Http\Controllers\PanelHabilidadesController;
 use App\Http\Controllers\PerfileController;
-
+use App\Http\Controllers\PortafolioController;
 
 
 
@@ -44,3 +44,12 @@ Route::get('/panel-habilidades', [PanelHabilidadesController::class, 'index'])->
 
 
 Route::resource('perfiles', PerfileController::class);
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/mi-portafolio', [PortafolioController::class, 'miPortafolio'])->name('mi-portafolio');
+    Route::get('/mi-portafolio/create', [PortafolioController::class, 'create'])->name('mi-portafolio.create');
+    Route::post('/mi-portafolio', [PortafolioController::class, 'store'])->name('mi-portafolio.store');
+});
+
+Route::get('/portafolio/{id_perfil}', [PortafolioController::class, 'verPortafolio'])->name('portafolio.ver');
