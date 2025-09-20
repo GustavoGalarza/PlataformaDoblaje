@@ -27,5 +27,14 @@ class Idioma extends Model
      */
     protected $fillable = ['nombre'];
 
-
+    // Relación muchos a muchos con Perfile
+    public function perfiles()
+    {
+        return $this->belongsToMany(
+            \App\Models\Perfile::class, // Modelo relacionado
+            'perfil_idioma',            // Tabla pivot
+            'idioma_id',                // FK de este modelo en la tabla pivot
+            'perfil_id'                 // FK del modelo relacionado en la tabla pivot
+        )->withTimestamps();
+    }
 }

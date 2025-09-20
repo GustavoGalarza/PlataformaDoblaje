@@ -13,6 +13,9 @@ use App\Http\Controllers\RedesSocialeController;
 use App\Http\Controllers\PanelHabilidadesController;
 use App\Http\Controllers\PerfileController;
 use App\Http\Controllers\PortafolioController;
+use App\Http\Controllers\PerfilIdiomaController;
+use App\Http\Controllers\PerfilTipoVozController;
+
 
 
 
@@ -53,6 +56,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/mi-portafolio/edit', [PortafolioController::class, 'edit'])->name('mi-portafolio.edit');
     Route::put('/mi-portafolio', [PortafolioController::class, 'update'])->name('mi-portafolio.update');
+//rutas de idiomas porfolio
+    Route::get('/mi-portafolio/{perfil}/idiomas', [PerfilIdiomaController::class, 'edit'])->name('mi-portafolio.idiomas.edit');
+    Route::post('/mi-portafolio/{perfil}/idiomas', [PerfilIdiomaController::class, 'update'])->name('mi-portafolio.idiomas.update');
+//rutas de tipo de voz porfolio
+    Route::get('/mi-portafolio/tipos-voz/{perfil}/edit', [PerfilTipoVozController::class, 'edit'])->name('perfil-tipo-voz.edit');
+    Route::put('/mi-portafolio/tipos-voz/{perfil}', [PerfilTipoVozController::class, 'update'])->name('perfil-tipo-voz.update');
 
 });
 

@@ -26,7 +26,7 @@
         }
     </style>
     <div class="container my-4">
-        <h1 class="mb-4 text-center">Noticias</h1>
+        <h1 class="mb-4 text-center text-white">Noticias</h1>
         <div class="row g-4">
             @foreach ($noticias as $noticia)
                 {{-- Modal para ver la imagen en grande --}}

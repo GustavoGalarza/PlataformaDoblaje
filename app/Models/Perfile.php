@@ -54,5 +54,18 @@ class Perfile extends Model
     {
         return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
     }
-    
+      // Relación muchos a muchos con Idioma
+    public function idiomas()
+    {
+        return $this->belongsToMany(
+            \App\Models\Idioma::class,  // Modelo relacionado
+            'perfil_idioma',           // Tabla pivot
+            'perfil_id',               // FK de este modelo en la tabla pivot
+            'idioma_id'                // FK del modelo relacionado en la tabla pivot
+        )->withTimestamps();
+    }
+    public function tiposVoz(){
+    return $this->belongsToMany(\App\Models\TipoVoz::class, 'perfil_tipo_voz', 'perfil_id', 'tipo_voz_id')->withTimestamps();
+}
+
 }

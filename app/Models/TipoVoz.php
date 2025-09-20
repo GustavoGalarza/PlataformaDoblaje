@@ -28,5 +28,8 @@ class TipoVoz extends Model
      */
     protected $fillable = ['nombre', 'descripcion'];
 
+public function perfiles() {
+    return $this->belongsToMany(\App\Models\Perfile::class, 'perfil_tipo_voz', 'tipo_voz_id', 'perfil_id');
+}
 
 }

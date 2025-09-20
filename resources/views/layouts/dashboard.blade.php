@@ -113,8 +113,8 @@
         /* Contenido */
         .content {
             flex: 1;
-            background: #f8f9fa;
-            padding: 2rem;
+            background-color: #111;
+            padding: 5px;
         }
     </style>
 </head>
