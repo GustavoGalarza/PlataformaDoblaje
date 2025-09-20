@@ -86,25 +86,9 @@
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <div>
                                     @if ($noticia->user)
-                                        @php
-                                            switch ($noticia->user->rol->nombre ?? null) {
-                                                case 'Admin':
-                                                    $roleBadge = 'badge bg-danger';
-                                                    break;
-                                                case 'Directora':
-                                                    $roleBadge = 'badge bg-warning text-dark';
-                                                    break;
-                                                case 'Estudiante':
-                                                    $roleBadge = 'badge bg-success';
-                                                    break;
-                                                default:
-                                                    $roleBadge = 'badge bg-secondary';
-                                                    break;
-                                            }
-                                        @endphp
+                                       
                                         <span class="fs-4 fw-bold">{{ $noticia->user->name }}</span>
-                                        <span
-                                            class="{{ $roleBadge }} fs-6 fw-bold">{{ $noticia->user->rol->nombre ?? 'N/A' }}</span>
+                                       
                                     @else
                                         <span class="badge bg-secondary">Desconocido</span>
                                     @endif

@@ -5,50 +5,81 @@ Mi Portafolio
 @endsection
 
 @section('content')
-<div class="container py-4">
-    <div class="row">
-        <div class="col-md-4 text-center">
-            @if($perfil && $perfil->foto_url)
-                <x-cloudinary::image public-id="{{ $perfil->foto_url }}" width="150" height="150" crop="fill" class="rounded-circle mb-3"/>
-            @else
-                <i class="fa-solid fa-user fa-7x mb-3"></i>
-            @endif
+<div class="container py-5" style="background-color: #121212; min-height: 100vh;">
+    <div class="card shadow-lg p-4" style="background-color: #1e1e1e; color: #f1f1f1; border-radius: 15px;">
+        
+        {{-- Botón superior de Editar --}}
+        @if($perfil)
+            <div class="d-flex justify-content-end mb-3">
+                <a href="{{ route('mi-portafolio.edit') }}" class="btn btn-warning">
+    <i class="fa fa-edit"></i> Editar Perfil
+</a>
 
-            <h3>{{ $perfil ? $perfil->nombre : 'Mi Perfil' }}</h3>
-            <p>{{ $perfil?->email }}</p>
-            <p>{{ $perfil?->telefono }}</p>
-            <p>{{ $perfil?->ubicacion }}</p>
-        </div>
+            </div>
+        @endif
 
-        <div class="col-md-8">
-            @if($perfil)
-                <h4>Biografía</h4>
-                <p>{{ $perfil->biografia }}</p>
+        <div class="row">
+            {{-- Columna izquierda: Foto y datos básicos --}}
+            <div class="col-md-4 text-center mb-4">
+                @if($perfil && $perfil->foto_url)
+                    <x-cloudinary::image 
+                        public-id="{{ $perfil->foto_url }}" 
+                        width="200" height="200" crop="fill" 
+                        class="rounded-circle shadow mb-3" 
+                        style="object-fit: cover; border: 5px solid #333;" />
+                @else
+                    <i class="fa-solid fa-user fa-10x mb-3 text-secondary" style="border: 5px solid #333; border-radius: 50%; padding: 20px;"></i>
+                @endif
 
-                <h4>Disponibilidad</h4>
-                <p>{{ $perfil->disponibilidad }}</p>
+                <h2 class="fw-bold">{{ $perfil ? $perfil->nombre : 'Mi Perfil' }}</h2>
+                <p class="text-muted">{{ $perfil?->email }}</p>
+                <p><i class="fa fa-phone"></i> {{ $perfil?->telefono }}</p>
+                <p><i class="fa fa-map-marker-alt"></i> {{ $perfil?->ubicacion }}</p>
+            </div>
 
-                <h4>Habilidades</h4>
-                <ul>
-                    <li><strong>Dicción y articulación:</strong> {{ $perfil->diccion_articulacion }}</li>
-                    <li><strong>Actuación de emociones:</strong> {{ $perfil->actuacion_emociones }}</li>
-                    <li><strong>Advertencia vocal:</strong> {{ $perfil->advertencia_vocal }}</li>
-                    <li><strong>Home Studio:</strong> {{ $perfil->home_studio }}</li>
-                    <li><strong>Edición/Postproducción:</strong> {{ $perfil->edicion_postproduccion }}</li>
-                    <li><strong>Entregas/Flujo de trabajo:</strong> {{ $perfil->entregas_flujo_trabajo }}</li>
-                </ul>
+            {{-- Columna derecha: Información detallada --}}
+            <div class="col-md-8">
+                @if($perfil)
+                    <div class="mb-4">
+                        <h4 class="border-bottom ">Biografía</h4>
+                        <p>{{ $perfil->biografia }}</p>
+                    </div>
 
-                <h4>Créditos</h4>
-                <p>{{ $perfil->creditos }}</p>
+                    <div class="mb-4">
+                        <h4 class="border-bottom ">Disponibilidad</h4>
+                        <p>{{ $perfil->disponibilidad }}</p>
+                    </div>
 
-                <h4>Formación</h4>
-                <p>{{ $perfil->formacion }}</p>
+                    <div class="mb-4">
+                        <h4 class="border-bottom ">Habilidades</h4>
+                        <ul class="list-unstyled">
+                            <li><strong>Dicción y articulación:</strong> {{ $perfil->diccion_articulacion }}</li>
+                            <li><strong>Actuación de emociones:</strong> {{ $perfil->actuacion_emociones }}</li>
+                            <li><strong>Advertencia vocal:</strong> {{ $perfil->advertencia_vocal }}</li>
+                            <li><strong>Home Studio:</strong> {{ $perfil->home_studio }}</li>
+                            <li><strong>Edición/Postproducción:</strong> {{ $perfil->edicion_postproduccion }}</li>
+                            <li><strong>Entregas/Flujo de trabajo:</strong> {{ $perfil->entregas_flujo_trabajo }}</li>
+                        </ul>
+                    </div>
 
-                <h4>Reconocimientos</h4>
-                <p>{{ $perfil->reconocimientos }}</p>
-            @else
-                <p>No tienes perfil creado. Usa el botón del modal para crearlo.</p>
-            @endif
+                    <div class="mb-4">
+                        <h4 class="border-bottom pb-2">Créditos</h4>
+                        <p>{{ $perfil->creditos }}</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4 class="border-bottom pb-2">Formación</h4>
+                        <p>{{ $perfil->formacion }}</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4 class="border-bottom pb-2">Reconocimientos</h4>
+                        <p>{{ $perfil->reconocimientos }}</p>
+                    </div>
+                @else
+                    <p>No tienes perfil creado. Usa el botón del modal para crearlo.</p>
+                @endif
+            </div>
         </div>
     </div>
 </div>

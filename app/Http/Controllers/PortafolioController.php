@@ -85,4 +85,58 @@ public function store(Request $request)
 
         return view('portafolio.ver-perfil', compact('perfil'));
     }
+
+public function edit()
+{
+    $user = Auth::user();
+    $perfil = Perfile::where('user_id', $user->id)->first();
+
+    if (!$perfil) {
+        return redirect()->route('mi-portafolio.create')
+            ->with('error', 'Debes crear un perfil antes de poder editarlo.');
+    }
+
+    return view('portafolio.edit', compact('perfil'));
+}
+
+public function update(Request $request){
+    $perfil = Perfile::where('user_id', Auth::id())->firstOrFail();
+
+    $request->validate([
+        'nombre' => 'required|string|max:255',
+        'edad' => 'required|integer|min:1',
+        'email' => 'required|email',
+        'telefono' => 'nullable|string|max:20',
+        'biografia' => 'nullable|string',
+        'ubicacion' => 'nullable|string|max:255',
+        'disponibilidad' => 'nullable|string|max:255',
+        'diccion_articulacion' => 'nullable|string|max:255',
+        'actuacion_emociones' => 'nullable|string|max:255',
+        'advertencia_vocal' => 'nullable|string|max:255',
+        'home_studio' => 'nullable|string|max:255',
+        'edicion_postproduccion' => 'nullable|string|max:255',
+        'entregas_flujo_trabajo' => 'nullable|string|max:255',
+        'creditos' => 'nullable|string',
+        'formacion' => 'nullable|string',
+        'reconocimientos' => 'nullable|string',
+        'foto_url' => 'nullable|image|max:2048',
+    ]);
+
+    $data = $request->all();
+
+    if ($request->hasFile('foto_url')) {
+        // eliminar la anterior si existe
+        if ($perfil->foto_url) {
+            Storage::disk('cloudinary')->delete($perfil->foto_url);
+        }
+        $file = $request->file('foto_url');
+        $uploadedFileUrl = Storage::disk('cloudinary')->putFile('perfiles', $file, 'public');
+        $data['foto_url'] = $uploadedFileUrl;
+    }
+
+    $perfil->update($data);
+
+    return redirect()->route('mi-portafolio')->with('success', 'Perfil actualizado correctamente');
+}
+
 }

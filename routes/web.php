@@ -50,6 +50,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mi-portafolio', [PortafolioController::class, 'miPortafolio'])->name('mi-portafolio');
     Route::get('/mi-portafolio/create', [PortafolioController::class, 'create'])->name('mi-portafolio.create');
     Route::post('/mi-portafolio', [PortafolioController::class, 'store'])->name('mi-portafolio.store');
+
+    Route::get('/mi-portafolio/edit', [PortafolioController::class, 'edit'])->name('mi-portafolio.edit');
+    Route::put('/mi-portafolio', [PortafolioController::class, 'update'])->name('mi-portafolio.update');
+
 });
 
 Route::get('/portafolio/{id_perfil}', [PortafolioController::class, 'verPortafolio'])->name('portafolio.ver');
