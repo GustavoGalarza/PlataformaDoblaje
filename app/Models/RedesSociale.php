@@ -28,6 +28,12 @@ class RedesSociale extends Model
      * @var array<int, string>
      */
     protected $fillable = ['nombre', 'descripcion', 'icono'];
+public function perfiles()
+{
+    return $this->belongsToMany(\App\Models\Perfile::class, 'perfil_redes_sociales', 'red_social_id', 'perfil_id')
+                ->withPivot('link')
+                ->withTimestamps();
+}
 
 
 }

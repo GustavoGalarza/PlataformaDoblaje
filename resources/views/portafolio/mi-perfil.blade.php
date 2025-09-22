@@ -195,6 +195,43 @@
                         </div>
                     </div>
 
+                    {{-- Sección Redes Sociales --}}
+                    <div class="mt-4 p-3"
+                        style="background-color: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius:10px;">
+                        <h6 class="text-center mb-3 fw-bold">Redes Sociales</h6>
+
+                        @if ($perfil->redesSociales->count())
+                            <ul class="list-group list-group-flush">
+                                @foreach ($perfil->redesSociales as $red)
+                                    <li class="list-group-item d-flex align-items-center justify-content-start flex-wrap"
+                                        style="background-color: transparent; border: 1px solid rgba(255,255,255,0.2); border-radius:5px; margin-bottom:5px;">
+                                        <i class="{{ $red->icono }} me-2 text-white"></i>
+                                        <span class="me-2 text-white">{{ $red->nombre }}:</span>
+                                        @if ($red->pivot->link)
+                                            <a href="{{ $red->pivot->link }}" target="_blank"
+                                                class="text-white text-decoration-underline"
+                                                style="word-break: break-all; max-width: 100%;">
+                                                {{ $red->pivot->link }}
+                                            </a>
+                                        @else
+                                            <span class="text-white">Sin link</span>
+                                        @endif
+
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @else
+                            <p class="text-muted mb-0">No se han agregado redes sociales.</p>
+                        @endif
+
+                        <div class="d-flex justify-content-center mt-3">
+                            <button class="btn btn-sm btn-outline-light" data-bs-toggle="modal"
+                                data-bs-target="#editRedesSocialesModal">
+                                <i class="fa fa-share-alt"></i> Editar Redes Sociales
+                            </button>
+                        </div>
+                    </div>
+
 
 
                 </div>
@@ -225,8 +262,21 @@
 
                         <div class="mb-4">
                             <h4 class="border-bottom pb-2">Créditos</h4>
-                            <p>{{ $perfil->creditos }}</p>
+                            @php
+                                $creditos = $perfil->creditos ? explode(',', $perfil->creditos) : [];
+                            @endphp
+
+                            @if (count($creditos))
+                                <ul class="list-unstyled mb-0">
+                                    @foreach ($creditos as $credito)
+                                        <li>- {{ trim($credito) }}</li>
+                                    @endforeach
+                                </ul>
+                            @else
+                                <p class="text-muted mb-0">No se han agregado créditos.</p>
+                            @endif
                         </div>
+
 
                         <div class="mb-4">
                             <h4 class="border-bottom pb-2">Formación</h4>
@@ -286,5 +336,11 @@
             'acentosSeleccionados' => $perfil->acentosDialectos->pluck('id')->toArray(),
         ])
     @endif
-
+    @if ($perfil)
+        @include('portafolio.edit-redes-sociales', [
+            'perfil' => $perfil,
+            'redes' => \App\Models\RedesSociale::all(),
+            'redesSeleccionadas' => $perfil->redesSociales->pluck('id')->toArray(),
+        ])
+    @endif
 @endsection

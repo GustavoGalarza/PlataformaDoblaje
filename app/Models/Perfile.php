@@ -109,5 +109,11 @@ public function acentosDialectos()
     )->withTimestamps();
 }
 
+public function redesSociales()
+{
+    return $this->belongsToMany(\App\Models\RedesSociale::class, 'perfil_redes_sociales', 'perfil_id', 'red_social_id')
+                ->withPivot('link')
+                ->withTimestamps();
+}
 
 }
