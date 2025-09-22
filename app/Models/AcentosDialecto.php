@@ -27,6 +27,16 @@ class AcentosDialecto extends Model
      * @var array<int, string>
      */
     protected $fillable = ['nombre', 'descripcion'];
+public function perfiles()
+{
+    return $this->belongsToMany(
+        \App\Models\Perfile::class,         // Modelo relacionado
+        'perfil_acento_dialecto',            // Tabla pivot
+        'acento_dialecto_id',                // FK de este modelo en la tabla pivot
+        'perfil_id'                           // FK del modelo relacionado en la tabla pivot
+    )->withTimestamps();
+}
+
 
 
 }

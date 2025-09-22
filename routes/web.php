@@ -15,6 +15,12 @@ use App\Http\Controllers\PerfileController;
 use App\Http\Controllers\PortafolioController;
 use App\Http\Controllers\PerfilIdiomaController;
 use App\Http\Controllers\PerfilTipoVozController;
+use App\Http\Controllers\PerfilEstilosVozController;
+use App\Http\Controllers\PerfilRangoVocalController;
+use App\Http\Controllers\PerfilTimbreVozController;
+use App\Http\Controllers\PerfilAcentosDialectoController;
+
+
 
 
 
@@ -56,13 +62,32 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/mi-portafolio/edit', [PortafolioController::class, 'edit'])->name('mi-portafolio.edit');
     Route::put('/mi-portafolio', [PortafolioController::class, 'update'])->name('mi-portafolio.update');
-//rutas de idiomas porfolio
+
+    //rutas de idiomas porfolio
     Route::get('/mi-portafolio/{perfil}/idiomas', [PerfilIdiomaController::class, 'edit'])->name('mi-portafolio.idiomas.edit');
     Route::post('/mi-portafolio/{perfil}/idiomas', [PerfilIdiomaController::class, 'update'])->name('mi-portafolio.idiomas.update');
-//rutas de tipo de voz porfolio
+
+    //rutas de tipo de voz porfolio
     Route::get('/mi-portafolio/tipos-voz/{perfil}/edit', [PerfilTipoVozController::class, 'edit'])->name('perfil-tipo-voz.edit');
     Route::put('/mi-portafolio/tipos-voz/{perfil}', [PerfilTipoVozController::class, 'update'])->name('perfil-tipo-voz.update');
 
+    //rutas de estilos de voz porfolio
+    Route::get('mi-portafolio/estilos-voz/{perfil}/edit', [PerfilEstilosVozController::class, 'edit'])->name('perfil-estilos-voz.edit');
+    Route::post('mi-portafolio/estilos-voz/{perfil}', [PerfilEstilosVozController::class, 'update'])->name('perfil-estilos-voz.update');
+
+    //rutas de rango vocal porfolio
+    Route::get('mi-portafolio/rangos-vocales/{perfil}/edit', [PerfilRangoVocalController::class, 'edit'])->name('perfil-rango-vocal.edit');
+    Route::post('mi-portafolio/rangos-vocales/{perfil}', [PerfilRangoVocalController::class, 'update'])->name('perfil-rango-vocal.update');
+
+    // Rutas de timbre de voz en portafolio
+    Route::get('mi-portafolio/timbres-voz/{perfil}/edit', [PerfilTimbreVozController::class, 'edit'])->name('perfil-timbre-voz.edit');
+    Route::post('mi-portafolio/timbres-voz/{perfil}', [PerfilTimbreVozController::class, 'update'])->name('perfil-timbre-voz.update');
+
+    //rutas de acentos y dialectos en porfolio
+    Route::get('mi-portafolio/acentos-dialectos/{perfil}/edit', [PerfilAcentosDialectoController::class, 'edit'])->name('perfil-acento-dialecto.edit');
+
+    // Actualizar selección
+    Route::post('mi-portafolio/acentos-dialectos/{perfil}', [PerfilAcentosDialectoController::class, 'update'])->name('perfil-acento-dialecto.update');
 });
 
 Route::get('/portafolio/{id_perfil}', [PortafolioController::class, 'verPortafolio'])->name('portafolio.ver');

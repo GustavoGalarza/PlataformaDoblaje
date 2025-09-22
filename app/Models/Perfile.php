@@ -54,7 +54,7 @@ class Perfile extends Model
     {
         return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
     }
-      // Relación muchos a muchos con Idioma
+    // Relación muchos a muchos con Idioma
     public function idiomas()
     {
         return $this->belongsToMany(
@@ -64,8 +64,50 @@ class Perfile extends Model
             'idioma_id'                // FK del modelo relacionado en la tabla pivot
         )->withTimestamps();
     }
-    public function tiposVoz(){
-    return $this->belongsToMany(\App\Models\TipoVoz::class, 'perfil_tipo_voz', 'perfil_id', 'tipo_voz_id')->withTimestamps();
+    public function tiposVoz()
+    {
+        return $this->belongsToMany(\App\Models\TipoVoz::class, 'perfil_tipo_voz', 'perfil_id', 'tipo_voz_id')->withTimestamps();
+    }
+
+    public function estilosVoz()
+    {
+        return $this->belongsToMany(
+            \App\Models\EstilosVoz::class,   // Modelo relacionado
+            'perfil_estilos_voz',           // Tabla pivot
+            'perfil_id',                    // FK en la tabla pivot hacia Perfile
+            'estilo_voz_id'                 // FK en la tabla pivot hacia EstilosVoz
+        )->withTimestamps();
+    }
+
+    public function rangosVocales()
+    {
+        return $this->belongsToMany(
+            \App\Models\RangoVocal::class,
+            'perfil_rango_vocal',
+            'perfil_id',
+            'rango_vocal_id'
+        )->withTimestamps();
+    }
+
+    public function timbresVoz()
+    {
+        return $this->belongsToMany(
+            \App\Models\TimbreVoz::class,
+            'perfil_timbre_voz',
+            'perfil_id',
+            'timbre_voz_id'
+        )->withTimestamps();
+    }
+// Relación muchos a muchos con Acentos/Dialectos
+public function acentosDialectos()
+{
+    return $this->belongsToMany(
+        \App\Models\AcentosDialecto::class,  // Modelo relacionado
+        'perfil_acento_dialecto',            // Tabla pivot
+        'perfil_id',                          // FK de este modelo en la tabla pivot
+        'acento_dialecto_id'                  // FK del modelo relacionado en la tabla pivot
+    )->withTimestamps();
 }
+
 
 }

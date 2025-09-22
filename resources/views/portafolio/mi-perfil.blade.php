@@ -78,7 +78,7 @@
                                     @endforeach
                                 </div>
                             @else
-                                <p class="text-muted mb-0">No se han agregado tipos de voz.</p>
+                                <p class="text-white mb-0">No se han agregado tipos de voz.</p>
                             @endif
 
                             <div class="d-flex justify-content-center mt-2">
@@ -89,11 +89,115 @@
                             </div>
                         </div>
                     @endif
+
+
+                    {{-- Sección Estilos de Voz --}}
+                    <div class="mt-4 p-3"
+                        style="background-color: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius:10px;">
+                        <h6 class="text-center mb-2 fw-bold">Estilos de Voz</h6>
+
+                        @if ($perfil->estilosVoz->count())
+                            <div class="d-flex flex-wrap justify-content-center gap-2">
+                                @foreach ($perfil->estilosVoz as $estilo)
+                                    <span class="badge border text-white px-3 py-1"
+                                        style="background-color: transparent; border-color: rgba(255,255,255,0.5);">
+                                        {{ $estilo->nombre }}
+                                    </span>
+                                @endforeach
+                            </div>
+                        @else
+                            <p class="text-white mb-0">No se han agregado estilos de voz.</p>
+                        @endif
+
+                        <div class="d-flex justify-content-center mt-2">
+                            <button class="btn btn-sm btn-outline-light" data-bs-toggle="modal"
+                                data-bs-target="#editEstilosVozModal">
+                                <i class="fa fa-music"></i> Editar Estilos de Voz
+                            </button>
+                        </div>
+                    </div>
+
+                    {{-- Sección Rangos Vocales --}}
+                    <div class="mt-4 p-3"
+                        style="background-color: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius:10px;">
+                        <h6 class="text-center mb-2 fw-bold">Rangos Vocales</h6>
+
+                        @if ($perfil->rangosVocales->count())
+                            <div class="d-flex flex-wrap justify-content-center gap-2">
+                                @foreach ($perfil->rangosVocales as $rango)
+                                    <span class="badge border text-white px-3 py-1"
+                                        style="background-color: transparent; border-color: rgba(255,255,255,0.5);">
+                                        {{ $rango->nombre }}
+                                    </span>
+                                @endforeach
+                            </div>
+                        @else
+                            <p class="text-white mb-0">No se han agregado rangos vocales.</p>
+                        @endif
+
+                        <div class="d-flex justify-content-center mt-2">
+                            <button class="btn btn-sm btn-outline-light" data-bs-toggle="modal"
+                                data-bs-target="#editRangosVocalesModal">
+                                <i class="fa fa-sliders-h"></i> Editar Rangos Vocales
+                            </button>
+                        </div>
+                    </div>
+
+                    {{-- Sección Timbres de Voz --}}
+                    <div class="mt-4 p-3"
+                        style="background-color: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius:10px;">
+                        <h6 class="text-center mb-2 fw-bold">Timbres de Voz</h6>
+
+                        @if ($perfil->timbresVoz->count())
+                            <div class="d-flex flex-wrap justify-content-center gap-2">
+                                @foreach ($perfil->timbresVoz as $timbre)
+                                    <span class="badge border text-white px-3 py-1"
+                                        style="background-color: transparent; border-color: rgba(255,255,255,0.5);">
+                                        {{ $timbre->nombre }}
+                                    </span>
+                                @endforeach
+                            </div>
+                        @else
+                            <p class="text-white mb-0">No se han agregado timbres de voz.</p>
+                        @endif
+
+                        <div class="d-flex justify-content-center mt-2">
+                            <button class="btn btn-sm btn-outline-light" data-bs-toggle="modal"
+                                data-bs-target="#editTimbresVozModal">
+                                <i class="fa fa-music"></i> Editar Timbres de Voz
+                            </button>
+                        </div>
+                    </div>
+
+                    {{-- Sección Acentos y Dialectos --}}
+                    <div class="mt-4 p-3"
+                        style="background-color: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius:10px;">
+                        <h6 class="text-center mb-2 fw-bold">Acentos y Dialectos</h6>
+
+                        @if ($perfil->acentosDialectos->count())
+                            <div class="d-flex flex-wrap justify-content-center gap-2">
+                                @foreach ($perfil->acentosDialectos as $acento)
+                                    <span class="badge border text-white px-3 py-1"
+                                        style="background-color: transparent; border-color: rgba(255,255,255,0.5);">
+                                        {{ $acento->nombre }}
+                                    </span>
+                                @endforeach
+                            </div>
+                        @else
+                            <p class="text-white mb-0">No se han agregado acentos ni dialectos.</p>
+                        @endif
+
+                        <div class="d-flex justify-content-center mt-2">
+                            <button class="btn btn-sm btn-outline-light" data-bs-toggle="modal"
+                                data-bs-target="#editAcentosDialectosModal">
+                                <i class="fa fa-globe"></i> Editar Acentos/Dialectos
+                            </button>
+                        </div>
+                    </div>
+
+
+
                 </div>
-
-
-
-
                 {{-- Columna derecha: Información detallada --}}
                 <div class="col-md-8">
                     @if ($perfil)
@@ -152,6 +256,34 @@
             'perfil' => $perfil,
             'tiposVoz' => \App\Models\TipoVoz::all(),
             'tiposSeleccionados' => $perfil->tiposVoz->pluck('id')->toArray(),
+        ])
+    @endif
+    @if ($perfil)
+        @include('portafolio.edit-estilos-voz', [
+            'perfil' => $perfil,
+            'estilosVoz' => \App\Models\EstilosVoz::all(),
+            'estilosSeleccionados' => $perfil->estilosVoz->pluck('id')->toArray(),
+        ])
+    @endif
+    @if ($perfil)
+        @include('portafolio.edit-rangos-vocales', [
+            'perfil' => $perfil,
+            'rangos' => \App\Models\RangoVocal::all(),
+            'rangosSeleccionados' => $perfil->rangosVocales->pluck('id')->toArray(),
+        ])
+    @endif
+    @if ($perfil)
+        @include('portafolio.edit-timbres-voz', [
+            'perfil' => $perfil,
+            'timbres' => \App\Models\TimbreVoz::all(),
+            'timbresSeleccionados' => $perfil->timbresVoz->pluck('id')->toArray(),
+        ])
+    @endif
+    @if ($perfil)
+        @include('portafolio.edit-acentos-dialectos', [
+            'perfil' => $perfil,
+            'acentos' => \App\Models\AcentosDialecto::all(),
+            'acentosSeleccionados' => $perfil->acentosDialectos->pluck('id')->toArray(),
         ])
     @endif
 

@@ -28,5 +28,14 @@ class RangoVocal extends Model
      */
     protected $fillable = ['nombre', 'descripcion'];
 
+    public function perfiles()
+    {
+        return $this->belongsToMany(
+            \App\Models\Perfile::class,
+            'perfil_rango_vocal',
+            'rango_vocal_id',
+            'perfil_id'
+        )->withTimestamps();
+    }
 
 }

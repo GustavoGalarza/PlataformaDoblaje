@@ -28,5 +28,14 @@ class TimbreVoz extends Model
      */
     protected $fillable = ['nombre', 'descripcion'];
 
+    public function perfiles()
+    {
+        return $this->belongsToMany(
+            \App\Models\Perfile::class,
+            'perfil_timbre_voz',
+            'timbre_voz_id',
+            'perfil_id'
+        )->withTimestamps();
+    }
 
 }
