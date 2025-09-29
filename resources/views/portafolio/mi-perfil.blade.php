@@ -310,11 +310,11 @@
                             @if ($videos->count())
                                 <h5 class="mt-3">Videos</h5>
                                 <div class="row">
-                                    @foreach ($videos as $video)
+                                    @foreach ($videos as $demo)
                                         <div class="col-md-4 mb-3">
                                             <div class="card bg-dark text-white h-100">
-                                                @if ($video->portada_url)
-                                                    <x-cloudinary::image public-id="{{ $video->portada_url }}"
+                                                @if ($demo->portada_url)
+                                                    <x-cloudinary::image public-id="{{ $demo->portada_url }}"
                                                         class="card-img-top" style="height:180px; object-fit:cover;" />
                                                 @else
                                                     <div class="d-flex justify-content-center align-items-center bg-secondary"
@@ -323,13 +323,16 @@
                                                     </div>
                                                 @endif
                                                 <div class="card-body text-center">
-                                                    <p class="card-title mb-2">{{ $video->titulo }}</p>
-                                                    <a href="{{ $video->archivo_url }}" target="_blank"
-                                                        class="btn btn-sm btn-primary">
+                                                    <p class="card-title mb-2">{{ $demo->titulo }}</p>
+                                                    <button class="btn btn-sm btn-outline-light" data-bs-toggle="modal"
+                                                        data-bs-target="#viewDemoModal-{{ $demo->id_demo }}">
                                                         <i class="fa fa-play"></i> Reproducir
-                                                    </a>
+                                                    </button>
                                                 </div>
                                             </div>
+
+                                            {{-- Modal para este demo --}}
+                                            @include('portafolio.view-demo', ['demo' => $demo])
                                         </div>
                                     @endforeach
                                 </div>
@@ -342,11 +345,11 @@
                             @if ($audios->count())
                                 <h5 class="mt-3">Audios</h5>
                                 <div class="row">
-                                    @foreach ($audios as $audio)
+                                    @foreach ($audios as $demo)
                                         <div class="col-md-4 mb-3">
                                             <div class="card bg-dark text-white h-100">
-                                                @if ($audio->portada_url)
-                                                    <x-cloudinary::image public-id="{{ $audio->portada_url }}"
+                                                @if ($demo->portada_url)
+                                                    <x-cloudinary::image public-id="{{ $demo->portada_url }}"
                                                         class="card-img-top" style="height:180px; object-fit:cover;" />
                                                 @else
                                                     <div class="d-flex justify-content-center align-items-center bg-secondary"
@@ -355,20 +358,21 @@
                                                     </div>
                                                 @endif
                                                 <div class="card-body text-center">
-                                                    <p class="card-title mb-2">{{ $audio->titulo }}</p>
-                                                    <a href="{{ $audio->archivo_url }}" target="_blank"
-                                                        class="btn btn-sm btn-primary">
-                                                        <button type="button" class="btn btn-sm btn-primary"
-                                                            onclick='viewDemo(@json($video))'>
-                                                            <i class="fa fa-play"></i> Reproducir
-                                                        </button>
-                                                    </a>
+                                                    <p class="card-title mb-2">{{ $demo->titulo }}</p>
+                                                    <button class="btn btn-sm btn-outline-light" data-bs-toggle="modal"
+                                                        data-bs-target="#viewDemoModal-{{ $demo->id_demo }}">
+                                                        <i class="fa fa-play"></i> Reproducir
+                                                    </button>
                                                 </div>
                                             </div>
+
+                                            {{-- Modal para este demo --}}
+                                            @include('portafolio.view-demo', ['demo' => $demo])
                                         </div>
                                     @endforeach
                                 </div>
                             @endif
+
 
                         </div>
 
@@ -432,5 +436,5 @@
         ])
     @endif
 
-    
+
 @endsection

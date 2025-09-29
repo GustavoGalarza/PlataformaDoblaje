@@ -16,6 +16,12 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Cloudinary Video Player CSS -->
+    <link href="https://unpkg.com/cloudinary-video-player@1.9.12/dist/cld-video-player.min.css" rel="stylesheet">
+
+    <!-- Cloudinary Core + Video Player JS -->
+    <script src="https://unpkg.com/cloudinary-core@2.12.3/cloudinary-core-shrinkwrap.min.js"></script>
+    <script src="https://unpkg.com/cloudinary-video-player@1.9.12/dist/cld-video-player.min.js"></script>
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
