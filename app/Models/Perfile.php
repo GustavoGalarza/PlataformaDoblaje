@@ -98,22 +98,27 @@ class Perfile extends Model
             'timbre_voz_id'
         )->withTimestamps();
     }
-// Relación muchos a muchos con Acentos/Dialectos
-public function acentosDialectos()
-{
-    return $this->belongsToMany(
-        \App\Models\AcentosDialecto::class,  // Modelo relacionado
-        'perfil_acento_dialecto',            // Tabla pivot
-        'perfil_id',                          // FK de este modelo en la tabla pivot
-        'acento_dialecto_id'                  // FK del modelo relacionado en la tabla pivot
-    )->withTimestamps();
-}
+    // Relación muchos a muchos con Acentos/Dialectos
+    public function acentosDialectos()
+    {
+        return $this->belongsToMany(
+            \App\Models\AcentosDialecto::class,  // Modelo relacionado
+            'perfil_acento_dialecto',            // Tabla pivot
+            'perfil_id',                          // FK de este modelo en la tabla pivot
+            'acento_dialecto_id'                  // FK del modelo relacionado en la tabla pivot
+        )->withTimestamps();
+    }
 
-public function redesSociales()
-{
-    return $this->belongsToMany(\App\Models\RedesSociale::class, 'perfil_redes_sociales', 'perfil_id', 'red_social_id')
-                ->withPivot('link')
-                ->withTimestamps();
-}
+    public function redesSociales()
+    {
+        return $this->belongsToMany(\App\Models\RedesSociale::class, 'perfil_redes_sociales', 'perfil_id', 'red_social_id')
+            ->withPivot('link')
+            ->withTimestamps();
+    }
+
+    public function demos()
+    {
+        return $this->hasMany(\App\Models\Demo::class, 'perfil_id', 'id_perfil');
+    }
 
 }

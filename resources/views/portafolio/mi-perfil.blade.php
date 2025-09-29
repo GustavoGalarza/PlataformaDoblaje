@@ -221,7 +221,7 @@
                                 @endforeach
                             </ul>
                         @else
-                            <p class="text-muted mb-0">No se han agregado redes sociales.</p>
+                            <p class="text-white mb-0">No se han agregado redes sociales.</p>
                         @endif
 
                         <div class="d-flex justify-content-center mt-3">
@@ -290,6 +290,94 @@
                     @else
                         <p>No tienes perfil creado. Usa el botón del modal para crearlo.</p>
                     @endif
+
+
+                    @if ($perfil)
+                        <div class="mt-4 p-3"
+                            style="background-color: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius:10px;">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h4 class="mb-0">Demos</h4>
+                                <button class="btn btn-sm btn-outline-light" data-bs-toggle="modal"
+                                    data-bs-target="#addDemoModal">
+                                    <i class="fa fa-plus"></i> Agregar Demo
+                                </button>
+                            </div>
+
+                            {{-- Videos --}}
+                            @php
+                                $videos = $perfil->demos->where('tipo_archivo', 'video');
+                            @endphp
+                            @if ($videos->count())
+                                <h5 class="mt-3">Videos</h5>
+                                <div class="row">
+                                    @foreach ($videos as $video)
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card bg-dark text-white h-100">
+                                                @if ($video->portada_url)
+                                                    <x-cloudinary::image public-id="{{ $video->portada_url }}"
+                                                        class="card-img-top" style="height:180px; object-fit:cover;" />
+                                                @else
+                                                    <div class="d-flex justify-content-center align-items-center bg-secondary"
+                                                        style="height:180px;">
+                                                        <i class="fa fa-video fa-3x"></i>
+                                                    </div>
+                                                @endif
+                                                <div class="card-body text-center">
+                                                    <p class="card-title mb-2">{{ $video->titulo }}</p>
+                                                    <a href="{{ $video->archivo_url }}" target="_blank"
+                                                        class="btn btn-sm btn-primary">
+                                                        <i class="fa fa-play"></i> Reproducir
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
+
+                            {{-- Audios --}}
+                            @php
+                                $audios = $perfil->demos->where('tipo_archivo', 'audio');
+                            @endphp
+                            @if ($audios->count())
+                                <h5 class="mt-3">Audios</h5>
+                                <div class="row">
+                                    @foreach ($audios as $audio)
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card bg-dark text-white h-100">
+                                                @if ($audio->portada_url)
+                                                    <x-cloudinary::image public-id="{{ $audio->portada_url }}"
+                                                        class="card-img-top" style="height:180px; object-fit:cover;" />
+                                                @else
+                                                    <div class="d-flex justify-content-center align-items-center bg-secondary"
+                                                        style="height:180px;">
+                                                        <i class="fa fa-music fa-3x"></i>
+                                                    </div>
+                                                @endif
+                                                <div class="card-body text-center">
+                                                    <p class="card-title mb-2">{{ $audio->titulo }}</p>
+                                                    <a href="{{ $audio->archivo_url }}" target="_blank"
+                                                        class="btn btn-sm btn-primary">
+                                                        <button type="button" class="btn btn-sm btn-primary"
+                                                            onclick='viewDemo(@json($video))'>
+                                                            <i class="fa fa-play"></i> Reproducir
+                                                        </button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
+
+                        </div>
+
+                        {{-- Incluir modal para agregar demo --}}
+                        @include('portafolio.add-demo', ['perfil' => $perfil])
+                    @endif
+
+
+
                 </div>
             </div>
         </div>
@@ -343,4 +431,6 @@
             'redesSeleccionadas' => $perfil->redesSociales->pluck('id')->toArray(),
         ])
     @endif
+
+    
 @endsection

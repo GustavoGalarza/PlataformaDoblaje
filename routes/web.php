@@ -20,6 +20,7 @@ use App\Http\Controllers\PerfilRangoVocalController;
 use App\Http\Controllers\PerfilTimbreVozController;
 use App\Http\Controllers\PerfilAcentosDialectoController;
 use App\Http\Controllers\PerfilRedesSocialesController;
+use App\Http\Controllers\DemoController;
 
 
 
@@ -90,9 +91,14 @@ Route::middleware(['auth'])->group(function () {
 
     //rutas de redes sociales para acentos en portafolio
     Route::get('mi-portafolio/redes-sociales/{perfil}/edit', [PerfilRedesSocialesController::class, 'edit'])
-    ->name('perfil-redes-sociales.edit');
+        ->name('perfil-redes-sociales.edit');
     Route::post('mi-portafolio/redes-sociales/{perfil}', [PerfilRedesSocialesController::class, 'update'])
-    ->name('perfil-redes-sociales.update');
+        ->name('perfil-redes-sociales.update');
+
+    //rutas de DEMOS para el perfil portafolio
+    Route::get('/mi-portafolio/demos/create', [DemoController::class, 'create'])->name('demos.create');
+    Route::post('/mi-portafolio/demos', [DemoController::class, 'store'])->name('demos.store');
+
 });
 
 Route::get('/portafolio/{id_perfil}', [PortafolioController::class, 'verPortafolio'])->name('portafolio.ver');
