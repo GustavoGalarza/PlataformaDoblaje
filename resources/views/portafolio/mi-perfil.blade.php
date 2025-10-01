@@ -328,11 +328,33 @@
                                                         data-bs-target="#viewDemoModal-{{ $demo->id_demo }}">
                                                         <i class="fa fa-play"></i> Reproducir
                                                     </button>
+                                                    <button class="btn btn-sm btn-outline-light" data-bs-toggle="modal"
+                                                        data-bs-target="#editDemoModal-{{ $demo->id_demo }}">
+                                                        <i class="fa fa-edit"></i> Editar
+                                                    </button>
+                                                    <!-- Botón de eliminación -->
+                                                    <button type="button" class="btn btn-danger btn-sm"
+                                                        onclick="confirmDelete({{ $demo->id_demo }})">
+                                                        <i class="fa fa-trash"></i> Eliminar
+                                                    </button>
+
+                                                    <!-- Formulario oculto -->
+                                                    <form id="delete-form-{{ $demo->id_demo }}"
+                                                        action="{{ route('demos.destroy', $demo->id_demo) }}"
+                                                        method="POST" style="display: none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+
+
+
                                                 </div>
                                             </div>
 
                                             {{-- Modal para este demo --}}
                                             @include('portafolio.view-demo', ['demo' => $demo])
+                                            @include('portafolio.edit-demo', ['demo' => $demo])
+
                                         </div>
                                     @endforeach
                                 </div>
@@ -363,11 +385,33 @@
                                                         data-bs-target="#viewDemoModal-{{ $demo->id_demo }}">
                                                         <i class="fa fa-play"></i> Reproducir
                                                     </button>
+                                                    <button class="btn btn-sm btn-outline-light" data-bs-toggle="modal"
+                                                        data-bs-target="#editDemoModal-{{ $demo->id_demo }}">
+                                                        <i class="fa fa-edit"></i> Editar
+                                                    </button>
+
+                                                    <!-- Botón de eliminación -->
+                                                    <button type="button" class="btn btn-danger btn-sm"
+                                                        onclick="confirmDelete({{ $demo->id_demo }})">
+                                                        <i class="fa fa-trash"></i> Eliminar
+                                                    </button>
+
+                                                    <!-- Formulario oculto -->
+                                                    <form id="delete-form-{{ $demo->id_demo }}"
+                                                        action="{{ route('demos.destroy', $demo->id_demo) }}"
+                                                        method="POST" style="display: none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+
+
                                                 </div>
                                             </div>
 
                                             {{-- Modal para este demo --}}
                                             @include('portafolio.view-demo', ['demo' => $demo])
+                                            @include('portafolio.edit-demo', ['demo' => $demo])
+
                                         </div>
                                     @endforeach
                                 </div>
@@ -435,6 +479,41 @@
             'redesSeleccionadas' => $perfil->redesSociales->pluck('id')->toArray(),
         ])
     @endif
+
+    @push('scripts')
+        <script>
+            function confirmDelete(id) {
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¡No podrás revertir esto!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, eliminar!',
+                    cancelButtonText: 'Cancelar',
+
+                    confirmButtonColor: '#ff4d4f', 
+                    cancelButtonColor: '#6c757d',
+
+                    // Estilo del modal (dark mode)
+                    background: '#2c2c2c', // fondo oscuro
+                    color: '#ffffff', 
+                    iconColor: '#ff4d4f', 
+                    customClass: {
+                        popup: 'swal2-dark-popup',
+                        title: 'swal2-dark-title',
+                        content: 'swal2-dark-content',
+                        confirmButton: 'swal2-dark-confirm',
+                        cancelButton: 'swal2-dark-cancel'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const form = document.getElementById('delete-form-' + id);
+                        if (form) form.submit();
+                    }
+                });
+            }
+        </script>
+    @endpush
 
 
 @endsection

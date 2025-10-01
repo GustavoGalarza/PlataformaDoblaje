@@ -99,6 +99,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mi-portafolio/demos/create', [DemoController::class, 'create'])->name('demos.create');
     Route::post('/mi-portafolio/demos', [DemoController::class, 'store'])->name('demos.store');
 
+    // Ruta para actualizar demo (para el modal de editar) y eliminar
+    Route::put('/mi-portafolio/demos/{demo}', [DemoController::class, 'update'])->name('demos.update');
+    Route::delete('/mi-portafolio/demos/{demo}', [DemoController::class, 'destroy'])->name('demos.destroy');
+
 });
 
 Route::get('/portafolio/{id_perfil}', [PortafolioController::class, 'verPortafolio'])->name('portafolio.ver');

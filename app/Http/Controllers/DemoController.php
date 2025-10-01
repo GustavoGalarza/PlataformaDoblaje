@@ -13,7 +13,8 @@ use App\Models\EstilosVoz;
 use App\Models\RangoVocal;
 use App\Models\TimbreVoz;
 use App\Models\AcentosDialecto;
-
+use Illuminate\Support\Facades\Log; // si quieres mantener logs
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 class DemoController extends Controller
 {
     /**
@@ -115,6 +116,148 @@ class DemoController extends Controller
         ]);
 
         return redirect()->route('mi-portafolio')->with('success', 'Demo cargado correctamente.');
+    }
+
+
+    public function update(Request $request, Demo $demo)
+    {
+        // Instancia de Cloudinary
+        $cloudinary = new \Cloudinary\Cloudinary([
+            'cloud' => [
+                'cloud_name' => env('CLOUDINARY_CLOUD_NAME'),
+                'api_key' => env('CLOUDINARY_KEY'),
+                'api_secret' => env('CLOUDINARY_SECRET'),
+            ],
+        ]);
+
+        // Actualizar archivo si se sube uno nuevo
+        if ($request->hasFile('archivo')) {
+            // Eliminar archivo antiguo si existe
+            if ($demo->archivo_url) {
+                try {
+                    $cloudinary->uploadApi()->destroy($demo->archivo_url, ['resource_type' => 'video']);
+                } catch (\Exception $e) {
+                    Log::error("No se pudo eliminar archivo antiguo: " . $e->getMessage());
+                }
+            }
+
+            $uploaded = $cloudinary->uploadApi()->upload(
+                $request->file('archivo')->getRealPath(),
+                [
+                    'folder' => 'demos',
+                    'resource_type' => 'video',
+                    'use_filename' => true,
+                    'unique_filename' => false,
+                ]
+            );
+            $demo->archivo_url = $uploaded['public_id'];
+        }
+
+        // Actualizar portada si se sube una nueva
+        if ($request->hasFile('portada')) {
+            // Eliminar portada antigua si existe
+            if ($demo->portada_url) {
+                try {
+                    $cloudinary->uploadApi()->destroy($demo->portada_url, ['resource_type' => 'image']);
+                } catch (\Exception $e) {
+                    Log::error("No se pudo eliminar portada antigua: " . $e->getMessage());
+                }
+            }
+
+            $uploadedPortada = $cloudinary->uploadApi()->upload(
+                $request->file('portada')->getRealPath(),
+                [
+                    'folder' => 'demos',
+                    'resource_type' => 'image',
+                    'use_filename' => true,
+                    'unique_filename' => false,
+                ]
+            );
+            $demo->portada_url = $uploadedPortada['public_id'];
+        }
+
+        // Actualizar campos solo si vienen en la request
+        if ($request->filled('titulo')) {
+            $demo->titulo = $request->titulo;
+        }
+
+        if ($request->filled('descripcion')) {
+            $demo->descripcion = $request->descripcion;
+        }
+
+        if ($request->filled('tipo_archivo')) {
+            $demo->tipo_archivo = $request->tipo_archivo;
+        }
+
+        if ($request->filled('idioma_id')) {
+            $demo->idioma_id = $request->idioma_id;
+        }
+
+        if ($request->filled('tipo_voz_id')) {
+            $demo->tipo_voz_id = $request->tipo_voz_id;
+        }
+
+        if ($request->filled('estilo_voz_id')) {
+            $demo->estilo_voz_id = $request->estilo_voz_id;
+        }
+
+        if ($request->filled('rango_vocal_id')) {
+            $demo->rango_vocal_id = $request->rango_vocal_id;
+        }
+
+        if ($request->filled('timbre_voz_id')) {
+            $demo->timbre_voz_id = $request->timbre_voz_id;
+        }
+
+        if ($request->filled('acento_id')) {
+            $demo->acento_id = $request->acento_id;
+        }
+
+        // Checkbox visibilidad
+        $demo->visibilidad = $request->has('visibilidad') ? 1 : 0;
+
+        // Estado solo si se envía
+        if ($request->filled('estado')) {
+            $demo->estado = $request->estado;
+        }
+
+        $demo->save();
+
+        return redirect()->route('mi-portafolio')->with('success', 'Demo actualizado correctamente.');
+    }
+
+    public function destroy(Demo $demo)
+    {
+        // Instancia de Cloudinary
+        $cloudinary = new \Cloudinary\Cloudinary([
+            'cloud' => [
+                'cloud_name' => env('CLOUDINARY_CLOUD_NAME'),
+                'api_key' => env('CLOUDINARY_KEY'),
+                'api_secret' => env('CLOUDINARY_SECRET'),
+            ],
+        ]);
+
+        // Eliminar archivo principal si existe
+        if ($demo->archivo_url) {
+            try {
+                $cloudinary->uploadApi()->destroy($demo->archivo_url, ['resource_type' => 'video']);
+            } catch (\Exception $e) {
+                Log::error("No se pudo eliminar archivo en Cloudinary: " . $e->getMessage());
+            }
+        }
+
+        // Eliminar portada si existe
+        if ($demo->portada_url) {
+            try {
+                $cloudinary->uploadApi()->destroy($demo->portada_url, ['resource_type' => 'image']);
+            } catch (\Exception $e) {
+                Log::error("No se pudo eliminar portada en Cloudinary: " . $e->getMessage());
+            }
+        }
+
+        $demo->delete();
+
+        return redirect()->route('mi-portafolio')->with('success', 'Demo eliminado correctamente.');
     }
 
 }
