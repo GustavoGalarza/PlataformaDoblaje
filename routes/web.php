@@ -21,6 +21,8 @@ use App\Http\Controllers\PerfilTimbreVozController;
 use App\Http\Controllers\PerfilAcentosDialectoController;
 use App\Http\Controllers\PerfilRedesSocialesController;
 use App\Http\Controllers\DemoController;
+use App\Http\Controllers\BusquedaPortafolioController;
+
 
 
 
@@ -106,3 +108,5 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/portafolio/{id_perfil}', [PortafolioController::class, 'verPortafolio'])->name('portafolio.ver');
+
+Route::get('/busqueda-portafolios', [BusquedaPortafolioController::class, 'index'])->name('busqueda.portafolios');

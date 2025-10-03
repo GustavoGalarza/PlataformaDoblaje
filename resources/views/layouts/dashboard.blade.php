@@ -121,6 +121,24 @@
             flex: 1;
             background-color: #111;
             padding: 5px;
+            overflow: auto;
+            /* permite scroll interno si es necesario */
+            min-height: 0;
+            /* muy importante para que los hijos con scroll se comporten */
+        }
+
+        #busqueda-advanced-form .filter-scroll-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding-bottom: 5px;
+            cursor: grab;
+        }
+
+        #busqueda-advanced-form .filter-scroll-container {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 8px;
         }
     </style>
 </head>
@@ -184,11 +202,17 @@
             <i class="fa-solid fa-network-wired"></i>
             <span>Control/Redes Sociales</span>
         </a>
-        <a href="{{ route('logout') }}"
-            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            <span>Cerrar Sesión</span>
+        <a href="{{ route('busqueda.portafolios') }}" class="nav-link">
+            <i class="fa fa-folder-tree"></i>
+            <span>Busqueda Portafolios</span>
         </a>
+        @auth
+            <a href="{{ route('logout') }}"
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Cerrar Sesión</span>
+            </a>
+        @endauth
         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
     </div>
 

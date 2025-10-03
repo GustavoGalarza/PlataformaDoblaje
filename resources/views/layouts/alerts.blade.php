@@ -9,10 +9,21 @@
             title: '¡Éxito!',
             text: '{{ $message }}',
             timer: 2000,
-            showConfirmButton: false
+            showConfirmButton: false,
+
+            // Estilo oscuro elegante
+            background: '#2c2c2c', 
+            color: '#ffffff',
+            iconColor: '#28a745',
+            customClass: {
+                popup: 'swal2-dark-popup',
+                title: 'swal2-dark-title',
+                content: 'swal2-dark-content'
+            }
         });
     </script>
 @endif
+
 
 @if ($message = Session::get('error'))
     <script>

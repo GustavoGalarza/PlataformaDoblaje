@@ -277,21 +277,46 @@
                             @endif
                         </div>
 
-
                         <div class="mb-4">
                             <h4 class="border-bottom pb-2">Formación</h4>
-                            <p>{{ $perfil->formacion }}</p>
+                            @php
+                                $formaciones = $perfil->formacion ? explode(',', $perfil->formacion) : [];
+                            @endphp
+
+                            @if (count($formaciones))
+                                <ul class="list-unstyled mb-0">
+                                    @foreach ($formaciones as $formacion)
+                                        <li>- {{ trim($formacion) }}</li>
+                                    @endforeach
+                                </ul>
+                            @else
+                                <p class="text-muted mb-0">No se ha agregado formación.</p>
+                            @endif
                         </div>
 
                         <div class="mb-4">
                             <h4 class="border-bottom pb-2">Reconocimientos</h4>
-                            <p>{{ $perfil->reconocimientos }}</p>
+                            @php
+                                $reconocimientos = $perfil->reconocimientos
+                                    ? explode(',', $perfil->reconocimientos)
+                                    : [];
+                            @endphp
+
+                            @if (count($reconocimientos))
+                                <ul class="list-unstyled mb-0">
+                                    @foreach ($reconocimientos as $reconocimiento)
+                                        <li>- {{ trim($reconocimiento) }}</li>
+                                    @endforeach
+                                </ul>
+                            @else
+                                <p class="text-muted mb-0">No se han agregado reconocimientos.</p>
+                            @endif
                         </div>
                     @else
                         <p>No tienes perfil creado. Usa el botón del modal para crearlo.</p>
                     @endif
 
-
+                    {{-- Demossss --}}
                     @if ($perfil)
                         <div class="mt-4 p-3"
                             style="background-color: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius:10px;">
@@ -491,13 +516,13 @@
                     confirmButtonText: 'Sí, eliminar!',
                     cancelButtonText: 'Cancelar',
 
-                    confirmButtonColor: '#ff4d4f', 
+                    confirmButtonColor: '#ff4d4f',
                     cancelButtonColor: '#6c757d',
 
                     // Estilo del modal (dark mode)
                     background: '#2c2c2c', // fondo oscuro
-                    color: '#ffffff', 
-                    iconColor: '#ff4d4f', 
+                    color: '#ffffff',
+                    iconColor: '#ff4d4f',
                     customClass: {
                         popup: 'swal2-dark-popup',
                         title: 'swal2-dark-title',
